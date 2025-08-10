@@ -1,1 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BACKFIRE - Broadening Asi@Connect Knowledge</title>
+    <style>
+        :root {
+            --primary: #9A2AA0;
+            --secondary: #DA3FA3;
+            --body: #FCF5EC;
+            --text: #1D1D1B;
+            --secondary-dark: #4E245C;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--body);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 20px rgba(154, 42, 160, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1.5rem;
+        }
+
+        .logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .logo {
+            height: 60px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--secondary-dark);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 32px rgba(154, 42, 160, 0.1);
+            border: 1px solid rgba(154, 42, 160, 0.1);
+        }
+
+        .section h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(154, 42, 160, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .outcome-item {
+            padding: 1.5rem;
+            background: var(--body);
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .outcome-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(218, 63, 163, 0.2);
+        }
+
+        .outcome-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .countries-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .country-tag {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 4rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 21px;
+            top: 0.5rem;
+            width: 18px;
+            height: 18px;
+            background: var(--secondary);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--secondary);
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .timeline-date {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .sdg-tags {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .sdg-tag {
+            background: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .logos {
+                gap: 1rem;
+            }
+
+            .logo {
+                height: 45px;
+            }
+
+            .nav-menu {
+                gap: 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+
+            .stat-card {
+                padding: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .outcomes-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .timeline::before {
+                left: 15px;
+            }
+
+            .timeline-dot {
+                left: 6px;
+            }
+
+            .timeline-item {
+                padding-left: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logos {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .countries-list {
+                justify-content: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logos">
+                    <img src="images/logos/tein-logo.png" alt="TEIN*CC" class="logo">
+                    <img src="images/logos/asia-connect-logo.png" alt="Asi@Connect" class="logo">
+                    <img src="images/logos/eu-logo.png" alt="European Union" class="logo">
+                </div>
+                <h1>BACKFIRE</h1>
+                <p class="subtitle">Broadening Asi@Connect Knowledge on Federated Identity, Roaming and E-infrastructure</p>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul class="nav-menu">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#outcomes">Key Outcomes</a></li>
+                <li><a href="#activities">Activities</a></li>
+                <li><a href="#challenges">Challenges</a></li>
+                <li><a href="#future">Future Directions</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <section id="overview" class="section">
+                <h2>Project Overview</h2>
+                <p>The BACKFIRE project aimed to broaden Asi@Connect's knowledge on federated identity, roaming, and e-infrastructure. Its purpose was to establish and develop identity federations within the Asia Pacific region, enable their participation in eduGAIN, and deploy eduroam.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">50</div>
+                        <div class="stat-label">Hours of Content Delivered</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">New eduGAIN Federations</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">177</div>
+                        <div class="stat-label">Total Attendees</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Beneficiary Countries</div>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--primary); margin-top: 2rem; margin-bottom: 1rem;">Beneficiary Countries</h3>
+                <div class="countries-list">
+                    <span class="country-tag">Afghanistan</span>
+                    <span class="country-tag">Bangladesh</span>
+                    <span class="country-tag">Bhutan</span>
+                    <span class="country-tag">Cambodia</span>
+                    <span class="country-tag">India</span>
+                    <span class="country-tag">Indonesia</span>
+                    <span class="country-tag">Laos</span>
+                    <span class="country-tag">Malaysia</span>
+                    <span class="country-tag">Myanmar</span>
+                    <span class="country-tag">Nepal</span>
+                    <span class="country-tag">Pakistan</span>
+                    <span class="country-tag">Sri Lanka</span>
+                    <span class="country-tag">Thailand</span>
+                    <span class="country-tag">Philippines</span>
+                    <span class="country-tag">Vietnam</span>
+                </div>
+            </section>
+
+            <section id="outcomes" class="section">
+                <h2>Key Outcomes</h2>
+                <div class="outcomes-grid">
+                    <div class="outcome-item">
+                        <h3>Exceeded eduGAIN Membership Goal</h3>
+                        <p>Successfully facilitated the membership of five new federations into eduGAIN, surpassing the initial goal of supporting three federations.</p>
+                    </div>
+                    <div class="outcome-item">
+                        <h3>New eduGAIN Members</h3>
+                        <p>Malaysia (SIFULAN), Pakistan (PKIFed), Sri Lanka (LIAF), China (CARSI), and New Zealand (Tuakiri) joined during the project period.</p>
+                    </div>
+                    <div class="outcome-item">
+                        <h3>High Regional Engagement</h3>
+                        <p>98 attendees from targeted beneficiary economies participated, demonstrating strong regional interest and engagement.</p>
+                    </div>
+                    <div class="outcome-item">
+                        <h3>Comprehensive Training</h3>
+                        <p>Delivered 50 hours of collaborative content across four face-to-face events, providing significant knowledge exchange.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="activities" class="section">
+                <h2>Project Activities Timeline</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">March 2018 - Singapore</div>
+                            <h3>APAN45 Event</h3>
+                            <p>Delivered 13 hours of interactive content to 47 participants. Focus on policy development and eduGAIN Steering Group meeting.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">August 2018 - Auckland, New Zealand</div>
+                            <h3>APAN46 Event</h3>
+                            <p>Delivered 8 hours of interactive content to 44 attendees. Included 1:1 and small group meetings for personalized guidance.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">February 2019 - Daejeon, Korea</div>
+                            <h3>APAN47 Event</h3>
+                            <p>Delivered 18 hours of interactive content to 40 attendees. Content built upon previous sessions with deeper technical focus.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">July 2019 - Putrajaya, Malaysia</div>
+                            <h3>APAN48 Event</h3>
+                            <p>Final event delivering 11 hours of interactive content to 46 attendees, completing the comprehensive training programme.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="challenges" class="section">
+                <h2>Challenges & Lessons Learned</h2>
+                <div class="outcomes-grid">
+                    <div class="outcome-item">
+                        <h3>Regional Participation Gaps</h3>
+                        <p>Unable to engage participants from Mongolia and had instances of zero attendance from several beneficiary countries including Afghanistan, Cambodia, and Myanmar.</p>
+                    </div>
+                    <div class="outcome-item">
+                        <h3>Administrative Barriers</h3>
+                        <p>Visa application processes and slow decision-making by partners occasionally hindered representative attendance at events.</p>
+                    </div>
+                    <div class="outcome-item">
+                        <h3>Staff Continuity Issues</h3>
+                        <p>Allowing NRENs to change staff between meetings was disruptive and required repeated coverage of topics, impacting learning continuity.</p>
+                    </div>
+                    <div class="outcome-item">
+                        <h3>Gender Equality Gap</h3>
+                        <p>Insufficient attention to diversity resulted in only three female attendees from target countries in the first two events.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="future" class="section">
+                <h2>Future Directions</h2>
+                <p>The BACKFIRE project successfully transitioned into the iFIRE project with continued funding from Asi@Connect/TEIN*CC. The Task Force on Identity & Access Management (TF-IAM) continues to exist beyond the initial support period, ensuring sustained community collaboration.</p>
+                
+                <div style="margin-top: 2rem;">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">Key Sustainability Measures:</h3>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="padding: 0.5rem 0; border-left: 3px solid var(--secondary); padding-left: 1rem; margin-bottom: 0.5rem;">🔄 Transition to virtual training formats (5-day session at APAN50)</li>
+                        <li style="padding: 0.5rem 0; border-left: 3px solid var(--secondary); padding-left: 1rem; margin-bottom: 0.5rem;">👥 Trainer continuity between projects to maintain expertise</li>
+                        <li style="padding: 0.5rem 0; border-left: 3px solid var(--secondary); padding-left: 1rem; margin-bottom: 0.5rem;">🔧 Use of well-established open-source tools and REFEDS standards</li>
+                        <li style="padding: 0.5rem 0; border-left: 3px solid var(--secondary); padding-left: 1rem; margin-bottom: 0.5rem;">🤝 Improved cross-project collaboration and synergy identification</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <h3>Contributing to Sustainable Development Goals</h3>
+            <div class="sdg-tags">
+                <span class="sdg-tag">SDG 4: Quality Education</span>
+                <span class="sdg-tag">SDG 9: Industry, Innovation & Infrastructure</span>
+                <span class="sdg-tag">SDG 17: Partnerships for the Goals</span>
+            </div>
+            <p style="margin-top: 1.5rem; opacity: 0.8;">
+                Coordinated by GÉANT | Funded by Asi@Connect/TEIN*CC | Supported by the European Union
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
